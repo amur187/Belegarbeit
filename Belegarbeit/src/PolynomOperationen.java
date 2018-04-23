@@ -1,52 +1,27 @@
-import Prog1Tools.IOTools;
+public class PolynomOperationen {
 
-public class polynomOperationen {
+	private Polynom erstesPolynom;
+	private Polynom zweitesPolynom;
 
-	public static double funktionsWertBestimmen(double[] polynom) {
-		int stelle = IOTools.readInt("Welcher Stellenwert soll bestimmt werden? \n");
+	public PolynomOperationen() {
+	}
+
+	public PolynomOperationen(Polynom erstesPolynom, Polynom zweitesPolynom) {
+		this.erstesPolynom = erstesPolynom;
+		this.zweitesPolynom = zweitesPolynom;
+	}
+
+	// Funktionswert an einer Stelle x ist fertig
+	public double funktionsWertBestimmen(Polynom p1, double stelle) {
 		double erg = 0;
-		for (int i = 0; i < polynom.length; i++) {
-			erg = erg + polynom[i] * Math.pow(stelle, i);
+		for (int i = 0; i < p1.getKoeffizienten().length; i++) {
+			erg = erg + p1.getKoeffizienten()[i] * Math.pow(stelle, i);
 		}
+		System.out.println(erg);
 		return erg;
 	}
 
-	public static double[] erstellen() {
-		int hoechsterGrad = IOTools.readInteger("Bitte geben Sie den höchsten Grad Ihres Polynomes ein:\n");
-		double[] polynom = new double[7];
-		for (int i = 0; i <= hoechsterGrad; i++) {
-			if (i > hoechsterGrad) {
-				polynom[i] = 0;
-			} else {
-				polynom[i] = IOTools.readDouble("Bitte geben Sie den Koeffizienten von x^" + i + "ein:\n");
-			}
-		}
-		return polynom;
-	}
-
-	// Ausgabe ist fertig
-	public static void ausgabe(Polynom p) {
-		double[] d = p.getKoeffizienten();
-		for (int i = d.length - 1; i >= 0; i--) {
-			if (i == 0) {
-				System.out.printf("%+.2f ", d[i]);
-			} else if (i == 1) {
-				System.out.printf("%+.2fx ", d[i]);
-			} else {
-				System.out.printf("%+.2fx^%d ", d[i], i);
-			}
-		}
-	}
-
-	// public static void listeFuellen(Polynom p) {
-	// for (int i = 0; i < 5; i++) {
-	// if (p.getKoeffizienten()[i] == null) {
-	//
-	// }
-	// }
-	// }
-
-	public static void listeErstellen() {
+	public void listeErstellen() {
 		double[][] liste = new double[5][];
 		for (int i = 0; i < liste.length; i++) {
 			liste[i] = null;
@@ -54,20 +29,59 @@ public class polynomOperationen {
 		System.out.println(liste.length);
 	}
 
-	public static void speichern() {
+	public void speichern() {
 
 	}
 
-	public static void aendern() {
+	public void aendern() {
 
 	}
 
-	public static void addieren() {
+	public void hornerFunktionswert(Polynom p1, double x) {
+		double funktionswert;
+		double[] matrix = p1.getKoeffizienten();
+
+		for (int i = 0; i < matrix.length; i++) {
+			if (i == 0) {
+				funktionswert = matrix[i] * x;
+			} else {
+				// matrix[i] =
+			}
+
+		}
 
 	}
 
-	public static void differenz() {
+	public void nullstelleBestimmen(Polynom p1) {
+		for (int i = 0; i < 1000; i++) {
+		}
+	}
 
+	// Addieren fertig
+	public Polynom addieren() {
+		double[] ergebnisArray = new double[7];
+		Polynom p = new Polynom(ergebnisArray);
+
+		for (int i = 0; i < this.erstesPolynom.getKoeffizienten().length; i++) {
+			ergebnisArray[i] = ergebnisArray[i] + this.erstesPolynom.getKoeffizienten()[i];
+		}
+
+		for (int i = 0; i < this.zweitesPolynom.getKoeffizienten().length; i++) {
+			ergebnisArray[i] = ergebnisArray[i] + this.zweitesPolynom.getKoeffizienten()[i];
+		}
+		p.setKoeffizienten(ergebnisArray);
+
+		return p;
+	}
+
+	public static void differenz(Polynom p1, Polynom p2) {
+		double[] d = new double[7];
+		Polynom p = new Polynom(d);
+		for (int i = 0; i < d.length; i++) {
+			d[i] = p1.getKoeffizienten()[i] - p2.getKoeffizienten()[i];
+		}
+		p.setKoeffizienten(d);
+		// polynomOperationen.ausgabe(p);
 	}
 
 }
